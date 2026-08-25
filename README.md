@@ -72,7 +72,7 @@ Compress-Archive -Path guides,tools,templates,samples,practice,downloads\seed-fr
 Remove-Item tools\pw_profile,tools\shots -Recurse -Force -ErrorAction SilentlyContinue
 ```
 
-**빌드 후에 확인한다** — **13개 항목**이어야 하고 `pw_profile` 이 없어야 한다(2026-08-25 기준):
+**빌드 후에 확인한다** — **16개 항목**이어야 하고 `pw_profile` 이 없어야 한다(2026-08-25 기준):
 ```powershell
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 $z=[IO.Compression.ZipFile]::OpenRead("$PWD\downloads\seed-workshop-도구모음.zip")
