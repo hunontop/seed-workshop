@@ -30,6 +30,7 @@
 |:--:|---|---|
 | **①** | **책에서 그림과 텍스트를 어떻게 처리하나** | `guides/01-책-그림과-텍스트.md` |
 | **②** | **화면이 낡았을 때 자동으로 다시 찍기** ★ | `guides/02-화면-자동-갱신.md` + `tools/` |
+| **③** | **시드를 어떻게 정리하나 — 제텔카스텐 · PARA** | `guides/03-시드-정리법.md` |
 | 덤 | 쓰기(조립·깎기·빈칸) · 쌓는 층 · SNS · 세션 시드화 스킬 | `index.html` · `skill/` |
 
 **①과 ②는 한 줄로 이어진다** — 책 그림 대부분이 **서비스 화면**이라 낡을 운명이라,
@@ -39,7 +40,7 @@
 
 ```
 index.html                 페이지 본체 (자기완결 — 외부 의존 0)
-guides/                    ①·② 전체 가이드
+guides/                    ①·②·③ 전체 가이드
 tools/capture_pages.py     화면 목록 → PNG + 언제 찍었는지 기록 + --stale 보고
 tools/capture_login.py     로그인 필요한 화면 (Playwright 영속 프로필)
 tools/shots.txt            찍을 목록 예시
@@ -72,7 +73,7 @@ Compress-Archive -Path guides,tools,templates,samples,practice,downloads\seed-fr
 Remove-Item tools\pw_profile,tools\shots -Recurse -Force -ErrorAction SilentlyContinue
 ```
 
-**빌드 후에 확인한다** — **16개 항목**이어야 하고 `pw_profile` 이 없어야 한다(2026-08-25 기준):
+**빌드 후에 확인한다** — **17개 항목**이어야 하고 `pw_profile` 이 없어야 한다(2026-08-25 기준):
 ```powershell
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 $z=[IO.Compression.ZipFile]::OpenRead("$PWD\downloads\seed-workshop-도구모음.zip")
