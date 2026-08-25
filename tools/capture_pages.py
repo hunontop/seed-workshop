@@ -31,6 +31,14 @@ import sys
 import urllib.parse
 from datetime import date, datetime
 
+# 한글 윈도우 콘솔(cp949)은 ✓·⚠ 같은 글자를 못 찍어 **프로그램이 죽는다**.
+# 캡처가 끝난 뒤 출력 단계에서 죽으면 매니페스트도 안 남는다 — 그래서 맨 앞에서 손본다.
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
+
 HERE = pathlib.Path(__file__).parent
 SHOTS_FILE = HERE / "shots.txt"
 OUT_DIR = HERE / "shots"

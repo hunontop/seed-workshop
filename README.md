@@ -58,7 +58,7 @@ downloads/                 스킬 배포본 + 전체 도구모음 zip (USB 배�
 ```powershell
 # 오프라인 배포용 도구모음 zip (현장 와이파이 대비 USB 백업)
 # ⚠️ 반드시 tools/pw_profile · tools/shots 가 없는 상태에서 돌릴 것 (아래 경고)
-Compress-Archive -Path guides,tools,templates,samples,downloads\seed-from-session.skill `
+Compress-Archive -Path guides,tools,templates,samples,practice,downloads\seed-from-session.skill `
   -DestinationPath downloads\seed-workshop-도구모음.zip -Force
 ```
 
@@ -72,7 +72,7 @@ Compress-Archive -Path guides,tools,templates,samples,downloads\seed-from-sessio
 Remove-Item tools\pw_profile,tools\shots -Recurse -Force -ErrorAction SilentlyContinue
 ```
 
-**빌드 후에 확인한다** — 11개 항목이어야 하고 `pw_profile` 이 없어야 한다:
+**빌드 후에 확인한다** — **13개 항목**이어야 하고 `pw_profile` 이 없어야 한다(2026-08-25 기준):
 ```powershell
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 $z=[IO.Compression.ZipFile]::OpenRead("$PWD\downloads\seed-workshop-도구모음.zip")

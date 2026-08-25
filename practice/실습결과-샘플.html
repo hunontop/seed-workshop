@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>실습 결과 샘플 — 카드를 적용해 고친 7장</title>
+<style>
+  :root{
+    --ink:#1a1a1a; --sub:#555; --line:#ddd;
+    --bg:#fafafa;            /* 배경엔-미색을-깐다 */
+    --card:#ffffff;
+    --point:#2f6fb5;         /* 강조색 하나 */
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  body{
+    background:#888;
+    font-family:"Pretendard Variable",Pretendard,-apple-system,"Malgun Gothic","Noto Sans KR",sans-serif;
+    color:var(--ink);
+  }
+  .slide{
+    width:1920px; height:1080px; background:var(--bg);
+    margin:0 auto 12px; padding:96px 120px; position:relative; overflow:hidden;
+  }
+  .n{position:absolute; right:56px; bottom:44px; font-size:26px; color:#bbb}
+  h1{font-size:96px; font-weight:800; letter-spacing:-.03em; line-height:1.1}
+  h2{font-size:64px; font-weight:700; letter-spacing:-.02em; margin-bottom:56px}
+  p,li,td,th{font-size:36px; line-height:1.7}
+  .sub{font-size:32px; color:var(--sub)}
+
+  /* 어느 카드를 적용했는지 — 실습 지시 "고친 자리마다 표시해줘"에 대한 답 */
+  .applied{position:absolute; left:120px; bottom:40px; display:flex; gap:10px; flex-wrap:wrap; max-width:1420px}
+  .applied span{font-size:19px; color:#7a6a5c; background:#f1ebe4; border:1px solid #e2d8cd;
+                border-radius:999px; padding:5px 14px}
+  .applied span.none{background:#eef2ee; border-color:#d8e2d8; color:#4f6b52}
+</style>
+</head>
+<body>
+
+<!-- 1. 표지 — 위계·절제 문제 없음. 배경만 미색으로 -->
+<div class="slide" style="display:flex; flex-direction:column; justify-content:center">
+  <p style="font-size:34px; letter-spacing:.28em; color:#999; margin-bottom:40px">CHAPTER 01</p>
+  <h1>프롬프트<br>엔지니어링</h1>
+  <div style="width:180px; height:4px; background:var(--ink); margin:56px 0 40px"></div>
+  <p class="sub" style="font-size:38px">좋은 답을 얻기 위해 좋은 질문을 연구하는 일</p>
+  <div class="applied"><span>배경엔-미색을-깐다 · 전역</span><span class="none">그 외 해당 없음</span></div>
+  <span class="n">1</span>
+</div>
+
+<!-- 2. 평평한 6줄 → 위계 + 3단 카드 -->
+<div class="slide">
+  <h2>프롬프트란 무엇인가</h2>
+  <p style="font-size:46px; font-weight:800; margin-bottom:14px">
+    LLM에 넣는 <span style="border-bottom:6px solid var(--point)">모든 문장</span>이 프롬프트다</p>
+  <p class="sub" style="font-size:30px; margin-bottom:54px">
+    직원에게 업무를 지시할 때처럼, 지시가 명확할수록 결과물 수준이 달라진다</p>
+
+  <div style="display:flex; gap:36px; align-items:stretch">
+    <div style="flex:1; background:var(--card); border:1px solid var(--line); border-radius:20px; padding:44px 38px">
+      <p style="font-size:26px; color:var(--point); font-weight:800; letter-spacing:.08em; margin-bottom:16px">WHY</p>
+      <p style="font-size:34px; font-weight:700; line-height:1.45">답변 품질을 결정하는<br>가장 중요한 요소</p>
+    </div>
+    <div style="flex:1; background:var(--card); border:1px solid var(--line); border-radius:20px; padding:44px 38px">
+      <p style="font-size:26px; color:var(--point); font-weight:800; letter-spacing:.08em; margin-bottom:16px">WHEN</p>
+      <p style="font-size:34px; font-weight:700; line-height:1.45">2020년 GPT-3 등장과<br>함께 시작됐다</p>
+    </div>
+    <div style="flex:1; background:var(--card); border:2px solid var(--point); border-radius:20px; padding:44px 38px">
+      <p style="font-size:26px; color:var(--point); font-weight:800; letter-spacing:.08em; margin-bottom:16px">SO WHAT</p>
+      <p style="font-size:34px; font-weight:700; line-height:1.45">비결정적이라 매번 다르다<br>→ <b>확률을 높이는 일</b></p>
+    </div>
+  </div>
+
+  <div class="applied">
+    <span>평평한-텍스트에-위계-만들기</span><span>텍스트-나열-도식-전환</span><span>배경엔-미색을-깐다</span>
+  </div>
+  <span class="n">2</span>
+</div>
+
+<!-- 3. 5행 표 → 나란한 카드 5장 -->
+<div class="slide">
+  <h2>고전 프롬프팅 기법 5종</h2>
+  <div style="display:flex; gap:24px; align-items:stretch; height:520px">
+    <div style="flex:1; background:var(--card); border:1px solid var(--line); border-radius:18px; padding:38px 30px">
+      <p style="font-size:34px; font-weight:800; margin-bottom:20px; line-height:1.25">단계별<br>생각하기</p>
+      <p style="font-size:27px; color:var(--sub); line-height:1.55">한 문장만 추가해도 성능이 향상된다</p>
+    </div>
+    <div style="flex:1; background:var(--card); border:1px solid var(--line); border-radius:18px; padding:38px 30px">
+      <p style="font-size:34px; font-weight:800; margin-bottom:20px; line-height:1.25">롤<br>프롬프팅</p>
+      <p style="font-size:27px; color:var(--sub); line-height:1.55">개발자·마케터 등 역할을 부여한다</p>
+    </div>
+    <div style="flex:1; background:var(--card); border:1px solid var(--line); border-radius:18px; padding:38px 30px">
+      <p style="font-size:34px; font-weight:800; margin-bottom:20px; line-height:1.25">퓨샷</p>
+      <p style="font-size:27px; color:var(--sub); line-height:1.55">답변 예시를 두 개 이상 제공한다</p>
+    </div>
+    <div style="flex:1; background:var(--card); border:1px solid var(--line); border-radius:18px; padding:38px 30px">
+      <p style="font-size:34px; font-weight:800; margin-bottom:20px; line-height:1.25">CoT</p>
+      <p style="font-size:27px; color:var(--sub); line-height:1.55">답변뿐 아니라 <b>풀이 과정</b> 예시까지 준다</p>
+    </div>
+    <div style="flex:1; background:var(--card); border:1px solid var(--line); border-radius:18px; padding:38px 30px">
+      <p style="font-size:34px; font-weight:800; margin-bottom:20px; line-height:1.25">분할·요약<br>체이닝</p>
+      <p style="font-size:27px; color:var(--sub); line-height:1.55">긴 문서를 나눠 각각 요약한 뒤 합친다</p>
+    </div>
+  </div>
+  <div class="applied">
+    <span>텍스트-나열-도식-전환</span><span>배경엔-미색을-깐다</span>
+    <span class="none">표는-비교추세일때-그래프로 → 적용 안 함: 수치가 없는 조회용 표다</span>
+  </div>
+  <span class="n">3</span>
+</div>
+
+<!-- 4. 5조각 도넛 → 버블 -->
+<div class="slide">
+  <h2>기법별 활용 비중</h2>
+  <div style="display:flex; align-items:center; gap:80px; height:520px">
+    <svg width="900" height="470" viewBox="0 0 900 470">
+      <circle cx="170" cy="235" r="150" fill="#2f6fb5"></circle>
+      <text x="170" y="215" text-anchor="middle" fill="#ffffff" font-size="72" font-weight="800">28%</text>
+      <text x="170" y="272" text-anchor="middle" fill="#dbe8f6" font-size="30">단계별 생각하기</text>
+
+      <circle cx="450" cy="200" r="122" fill="#c9c9c9"></circle>
+      <text x="450" y="192" text-anchor="middle" fill="#3a3a3a" font-size="52" font-weight="800">24%</text>
+      <text x="450" y="234" text-anchor="middle" fill="#5a5a5a" font-size="26">롤 프롬프팅</text>
+
+      <circle cx="672" cy="290" r="105" fill="#d6d6d6"></circle>
+      <text x="672" y="284" text-anchor="middle" fill="#3a3a3a" font-size="44" font-weight="800">20%</text>
+      <text x="672" y="322" text-anchor="middle" fill="#5a5a5a" font-size="24">퓨샷</text>
+
+      <circle cx="820" cy="128" r="82" fill="#e0e0e0"></circle>
+      <text x="820" y="124" text-anchor="middle" fill="#3a3a3a" font-size="36" font-weight="800">16%</text>
+      <text x="820" y="156" text-anchor="middle" fill="#5a5a5a" font-size="22">CoT</text>
+
+      <circle cx="838" cy="400" r="66" fill="#e8e8e8"></circle>
+      <text x="838" y="396" text-anchor="middle" fill="#3a3a3a" font-size="30" font-weight="800">12%</text>
+      <text x="838" y="424" text-anchor="middle" fill="#5a5a5a" font-size="20">분할·요약</text>
+    </svg>
+    <div style="flex:1">
+      <p style="font-size:44px; font-weight:800; line-height:1.35; margin-bottom:24px">
+        한 문장 추가로 끝나는<br><span style="border-bottom:6px solid var(--point)">단계별 생각하기</span>가<br>가장 많이 쓰인다</p>
+      <p class="sub" style="font-size:28px">원 크기가 곧 비중이다 — 조각을 눈으로 재지 않아도 된다</p>
+    </div>
+  </div>
+  <div class="applied">
+    <span>도넛은-단일수치-강조에만 → 버블로 옮김</span><span>강조는-소수에만-준다 · 색 1 + 무채색</span><span>배경엔-미색을-깐다</span>
+  </div>
+  <span class="n">4</span>
+</div>
+
+<!-- 5. 막대 2개 → 큰 숫자 -->
+<div class="slide">
+  <h2>예시를 넣으면 달라진다</h2>
+  <div style="display:flex; align-items:center; gap:100px; height:520px">
+    <div style="flex:1">
+      <p class="sub" style="font-size:32px; margin-bottom:6px">예시를 제공했을 때 성능</p>
+      <p style="font-size:230px; font-weight:800; line-height:.95; letter-spacing:-.04em; color:var(--point)">
+        92<span style="font-size:120px">%</span></p>
+      <p class="sub" style="font-size:30px; margin-top:14px">까지 끌어올린다 &nbsp;·&nbsp; 기준 = 예시 없음</p>
+    </div>
+    <div style="width:520px">
+      <p style="font-size:40px; font-weight:700; line-height:1.5">
+        값이 둘뿐인 막대그래프는<br>여백만 넓고 답답하다.<br>
+        <span style="color:var(--sub); font-size:32px">숫자 자체가 가장 강한 시각화다.</span></p>
+    </div>
+  </div>
+  <div class="applied"><span>적은데이터는-큰숫자로</span><span>배경엔-미색을-깐다</span></div>
+  <span class="n">5</span>
+</div>
+
+<!-- 6. 강조 6곳 → 1곳 -->
+<div class="slide">
+  <h2>좋은 프롬프트의 세 가지 요소</h2>
+  <div style="display:flex; flex-direction:column; gap:40px">
+    <div>
+      <p style="font-size:42px; font-weight:800; margin-bottom:8px">역할 부여</p>
+      <p class="sub" style="font-size:32px">이해에는 도움이 되나 성능 향상 효과는 모호하다. 클로드는 역할 없이도 맥락에서 최적 역할을 추론한다.</p>
+    </div>
+    <div>
+      <p style="font-size:42px; font-weight:800; margin-bottom:8px">
+        예시 제공 &nbsp;<span style="color:var(--point)">— 최대 92%</span></p>
+      <p class="sub" style="font-size:32px">장황한 설명보다 예시 한 장이 훨씬 효과적이다.</p>
+    </div>
+    <div>
+      <p style="font-size:42px; font-weight:800; margin-bottom:8px">출력 형태 지정</p>
+      <p class="sub" style="font-size:32px">표·목록·마크다운·JSON 등 원하는 형태를 지정하면 후처리가 필요 없어진다.</p>
+    </div>
+  </div>
+  <div class="applied">
+    <span>강조는-소수에만-준다 · 6곳 → 1곳</span><span>평평한-텍스트에-위계-만들기 · 형태로 위계</span><span>배경엔-미색을-깐다</span>
+  </div>
+  <span class="n">6</span>
+</div>
+
+<!-- 7. 이미 잘 된 도식 — 배경만 -->
+<div class="slide">
+  <h2>예시 개수로 부르는 이름</h2>
+  <div style="display:flex; gap:48px; margin-top:40px">
+    <div style="flex:1; background:var(--card); border:2px solid var(--line); border-radius:20px; padding:56px 44px">
+      <p style="font-size:88px; font-weight:800; line-height:1">0</p>
+      <p style="font-size:42px; font-weight:700; margin:24px 0 16px">제로샷</p>
+      <p class="sub">예시 없이 지시만 준다</p>
+    </div>
+    <div style="flex:1; background:var(--card); border:2px solid var(--line); border-radius:20px; padding:56px 44px">
+      <p style="font-size:88px; font-weight:800; line-height:1">1</p>
+      <p style="font-size:42px; font-weight:700; margin:24px 0 16px">원샷</p>
+      <p class="sub">예시를 하나 붙인다</p>
+    </div>
+    <div style="flex:1; background:var(--card); border:2px solid var(--ink); border-radius:20px; padding:56px 44px">
+      <p style="font-size:88px; font-weight:800; line-height:1">2+</p>
+      <p style="font-size:42px; font-weight:700; margin:24px 0 16px">퓨샷</p>
+      <p class="sub">둘 이상이면 형식까지 배운다</p>
+    </div>
+  </div>
+  <div class="applied"><span>배경엔-미색을-깐다 · 전역</span><span class="none">그 외 해당 없음 — 위계·절제·도식화가 이미 되어 있다</span></div>
+  <span class="n">7</span>
+</div>
+
+</body>
+</html>
