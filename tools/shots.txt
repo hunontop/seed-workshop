@@ -1,0 +1,12 @@
+# 찍을 화면 목록 — 한 줄에 하나.  이름 = URL
+#
+# 이 파일이 "무엇을 찍나"를 갖고, shots.manifest.json 이 "언제 찍었나"를 갖는다.
+# 둘이 있으면 스크린샷을 보관할 필요가 없다 — 낡으면 다시 돌리면 된다.
+#
+# 로컬 파일도 된다:   내덱 = C:/work/deck/index.html
+# 로그인이 필요하면 shots.login.txt 로 옮기고 capture_login.py 를 써라.
+
+ChatGPT요금제 = https://openai.com/chatgpt/pricing/
+Claude요금제 = https://www.anthropic.com/pricing
+NotebookLM = https://notebooklm.google/
+Gemini소개 = https://gemini.google/about/

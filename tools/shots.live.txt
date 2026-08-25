@@ -1,0 +1,8 @@
+# 외부 서비스 화면 — capture_live.py 가 읽는다. 한 줄에 하나.  이름 = URL
+#
+# 헤드리스는 봇 차단에 막힌다(로그인 없어도). 외부 사이트는 여기 적고 capture_live.py 를 써라.
+# 내 로컬 파일·자체 서버는 shots.txt + capture_pages.py 가 더 빠르다.
+
+ChatGPT요금제 = https://openai.com/chatgpt/pricing/
+Claude요금제 = https://www.anthropic.com/pricing
+NotebookLM = https://notebooklm.google/

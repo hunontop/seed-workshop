@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>연장통 — 노하우 시드화</title>
+<meta name="description" content="노하우 시드화 강의에서 쓴 프롬프트·스크립트·템플릿을 가져가는 곳.">
+<style>
+:root{
+  --bg:#fbfaf8; --surface:#ffffff; --line:#e5e1d8; --line-soft:#efece5;
+  --ink:#1b1a17; --ink-2:#57534a; --ink-3:#8a8478;
+  --accent:#b0522a; --accent-soft:#f6ece5;
+  --code-bg:#f4f1ea; --ok:#3f6f4a; --warn:#9a5b12;
+  --radius:14px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#16151a; --surface:#1e1d23; --line:#33313a; --line-soft:#282730;
+    --ink:#eae7e0; --ink-2:#b3ada2; --ink-3:#807a71;
+    --accent:#e08a5c; --accent-soft:#2a2019;
+    --code-bg:#232228; --ok:#7fb98c; --warn:#d9a054;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16151a; --surface:#1e1d23; --line:#33313a; --line-soft:#282730;
+  --ink:#eae7e0; --ink-2:#b3ada2; --ink-3:#807a71;
+  --accent:#e08a5c; --accent-soft:#2a2019;
+  --code-bg:#232228; --ok:#7fb98c; --warn:#d9a054;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Segoe UI",
+    "Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+  font-size:17px; line-height:1.75; word-break:keep-all;
+}
+.wrap{max-width:760px; margin:0 auto; padding:0 20px 96px}
+a{color:var(--accent)}
+
+header{padding:56px 0 8px; border-bottom:1px solid var(--line); margin-bottom:8px}
+.kicker{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); margin:0 0 10px}
+h1{font-size:2.1rem; line-height:1.25; margin:0 0 14px; letter-spacing:-.02em}
+.lede{font-size:1.06rem; color:var(--ink-2); margin:0 0 22px; max-width:56ch}
+.lede strong{color:var(--ink)}
+
+.chain{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+  padding:16px 18px; margin:0 0 28px; font-size:.95rem; color:var(--ink-2);
+}
+.chain b{color:var(--ink)}
+
+nav.toc{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 40px; padding:8px 0 4px}
+nav.toc a{
+  display:inline-block; padding:7px 13px; border:1px solid var(--line); border-radius:999px;
+  font-size:14px; text-decoration:none; color:var(--ink-2); background:var(--surface);
+}
+nav.toc a:hover{border-color:var(--accent); color:var(--accent)}
+nav.toc a.key{border-color:var(--accent); color:var(--accent); font-weight:600}
+
+section{margin:0 0 52px; scroll-margin-top:20px}
+h2{font-size:1.4rem; margin:0 0 6px; letter-spacing:-.01em; display:flex; align-items:baseline; gap:11px}
+h2 .num{
+  font-size:.72rem; font-weight:700; letter-spacing:.08em; color:var(--accent);
+  background:var(--accent-soft); padding:4px 9px; border-radius:6px; flex:none;
+}
+.sub{color:var(--ink-2); margin:0 0 22px; font-size:.97rem}
+h3{font-size:1.03rem; margin:30px 0 8px; letter-spacing:-.005em}
+h3 .tag{
+  font-size:.72rem; font-weight:600; color:var(--ink-3); border:1px solid var(--line);
+  padding:2px 7px; border-radius:5px; margin-left:8px; vertical-align:2px; white-space:nowrap;
+}
+p{margin:0 0 14px}
+.small{font-size:.92rem; color:var(--ink-2)}
+
+.card{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+  padding:18px 18px 14px; margin:0 0 18px;
+}
+.card > :last-child{margin-bottom:0}
+
+.prompt{position:relative; margin:0 0 20px}
+.prompt pre, pre.plain{
+  margin:0; background:var(--code-bg); border:1px solid var(--line-soft); border-radius:var(--radius);
+  padding:20px 18px 18px; overflow-x:auto;
+  font-family:ui-monospace,SFMono-Regular,"Cascadia Mono",Consolas,"D2Coding","Malgun Gothic",monospace;
+  font-size:14.5px; line-height:1.72; white-space:pre-wrap; color:var(--ink);
+}
+pre.plain{margin:0 0 18px}
+.copy{
+  position:absolute; top:10px; right:10px;
+  border:1px solid var(--line); background:var(--surface); color:var(--ink-2);
+  font:inherit; font-size:13px; padding:6px 12px; border-radius:8px; cursor:pointer; min-height:34px;
+}
+.copy:hover{border-color:var(--accent); color:var(--accent)}
+.copy.done{color:var(--ok); border-color:var(--ok)}
+@media (max-width:520px){ .copy{position:static; margin-top:8px; width:100%} }
+
+ul,ol{margin:0 0 14px; padding-left:1.25em}
+li{margin:0 0 7px}
+li::marker{color:var(--ink-3)}
+
+.note{
+  border-left:3px solid var(--accent); background:var(--accent-soft);
+  padding:13px 16px; border-radius:0 10px 10px 0; margin:0 0 18px; font-size:.95rem;
+}
+.note strong{color:var(--ink)}
+.note.warn{border-left-color:var(--warn)}
+
+.dl{display:flex; flex-wrap:wrap; gap:10px; margin:4px 0 18px}
+.dl a{
+  display:inline-flex; align-items:center; gap:9px; text-decoration:none;
+  border:1px solid var(--line); background:var(--surface); border-radius:10px;
+  padding:11px 15px; color:var(--ink); font-size:.94rem; min-height:44px;
+}
+.dl a:hover{border-color:var(--accent)}
+.dl a.key{border-color:var(--accent); background:var(--accent-soft)}
+.dl a .ic{font-size:1.05rem; flex:none}
+.dl a .meta{color:var(--ink-3); font-size:.85rem}
+
+table{width:100%; border-collapse:collapse; margin:0 0 18px; font-size:.94rem; display:block; overflow-x:auto}
+th,td{text-align:left; padding:10px 12px; border-bottom:1px solid var(--line-soft); vertical-align:top}
+th{color:var(--ink-3); font-weight:600; font-size:.85rem; white-space:nowrap}
+
+.dont{list-style:none; padding:0; margin:0}
+.dont li{border:1px solid var(--line); border-radius:var(--radius); background:var(--surface); padding:15px 17px; margin:0 0 10px}
+.dont b{display:block; font-size:1.02rem; margin-bottom:3px}
+.dont span{color:var(--ink-2); font-size:.94rem}
+
+ol.steps{counter-reset:s; list-style:none; padding:0; margin:0}
+ol.steps li{counter-increment:s; position:relative; padding-left:42px; margin:0 0 16px}
+ol.steps li::before{
+  content:counter(s); position:absolute; left:0; top:1px;
+  width:28px; height:28px; border-radius:50%; background:var(--accent-soft); color:var(--accent);
+  font-size:14px; font-weight:700; display:flex; align-items:center; justify-content:center;
+}
+
+.big{
+  font-size:1.12rem; font-weight:600; color:var(--ink); background:var(--surface);
+  border:1px solid var(--accent); border-radius:var(--radius); padding:16px 18px; margin:0 0 18px;
+}
+
+footer{border-top:1px solid var(--line); padding-top:22px; margin-top:60px; color:var(--ink-3); font-size:.88rem}
+code{background:var(--code-bg); padding:1px 6px; border-radius:5px; font-size:.9em;
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="kicker">연장통</p>
+  <h1>노하우 시드화 — 가져가는 도구</h1>
+  <p class="lede">강의에서 쓴 <strong>프롬프트·스크립트·템플릿</strong>을 그대로 담아 뒀습니다.
+  복사해서 바로 쓰세요.</p>
+  <div class="chain">
+    지침에 다 못 넣어서 <b>꺼내 쓰는 구조</b>로 뺀다 → <b>분해</b>한다 →
+    <b>필요한 만큼 꺼내 쓴다</b> → <code>asof</code>가 <b>낡은 걸 지목</b>하면 → <b>자동으로 다시 찍는다</b>
+  </div>
+</header>
+
+<nav class="toc">
+  <a class="key" href="#book">① 책에서 뜯기</a>
+  <a class="key" href="#refresh">② 화면 자동 갱신</a>
+  <a href="#use">쓰기</a>
+  <a href="#layers">쌓는 법</a>
+  <a href="#sns">SNS에서 긁기</a>
+  <a href="#session">내 세션도 재료다</a>
+  <a href="#dont">하지 말 것</a>
+  <a href="#start">첫 한 걸음</a>
+</nav>
+
+<!-- ─────────────────────────────── -->
+<section id="book">
+  <h2><span class="num">① 분해</span> 책에서 그림과 텍스트를 뜯는다</h2>
+  <p class="sub"><strong>텍스트와 그림은 처리가 다릅니다.</strong> 텍스트는 전사해서 갖고, <strong>그림은 안 갖습니다.</strong></p>
+
+  <div class="dl">
+    <a class="key" href="guides/01-책-그림과-텍스트.md" download><span class="ic">📖</span> 전체 가이드 <span class="meta">.md</span></a>
+  </div>
+
+  <div class="note warn">
+    <strong>먼저 지켜야 할 선</strong> — 출판물은 문장을 옮기지 않습니다. <b>무엇이 문제이고 어떻게 푸는지를 내 문장으로 다시 씁니다.</b>
+    인용은 짧게·따옴표·출처. 지면 이미지는 그대로 싣지 말고 <b>다시 찍거나 그립니다.</b>
+  </div>
+
+  <h3>텍스트 — 3단계</h3>
+  <table>
+    <tr><th></th><th>무엇</th><th>실측 교훈</th></tr>
+    <tr><td>1</td><td><b>캡처</b> — 화면을 PNG로</td><td><b>영상 녹화 후 프레임 추출 ✗</b> — OCR 일치율이 88~92%로 떨어집니다. PNG는 무손실인데 용량도 더 작습니다</td></tr>
+    <tr><td>2</td><td><b>전사</b> — 텍스트 원고 하나로</td><td>쪽 표시(<code>&lt;!-- page 58 --&gt;</code>)를 심어 두면 나중에 <b>구간만 다시</b> 뽑습니다</td></tr>
+    <tr><td>3</td><td><b>위임</b> — 절 단위로 AI에게</td><td><b>한 번에 한 절.</b> 한꺼번에 시키면 파일 번호가 충돌합니다</td></tr>
+  </table>
+
+  <div class="prompt">
+    <button class="copy" type="button">복사</button>
+    <pre>아래 전사본에서 지정한 구간만 읽고 재사용 가능한 시드로 분해해줘.
+
+- 문장을 그대로 옮기지 마라. 무엇이 문제이고 어떻게 푸는지를 네 문장으로 다시 써라
+- 목차 단위로 자르지 마라. 따로 꺼내 쓸 수 있는 단위로 잘라라 (한 꼭지가 보통 2~4개)
+- 조작법(메뉴 이름·클릭 경로)은 버려라. 도구가 바뀌면 죽는다
+  단 도구와 무관하게 유효한 성질은 남겨라
+- 그림이 필요하면 경로를 지어내지 말고, 원고에 있는 파일명을 그대로 figures_todo 에 적어라
+- 뜻이 통하지 않는 인식 오류 조각은 버려라. 애매하면 버려라
+- 한 번에 한 절만. 여러 절을 한꺼번에 시키지 마라</pre>
+  </div>
+
+  <div class="note">
+    ⚠️ <strong>누락은 조용합니다.</strong> 전권을 훑었다고 믿었는데 한 장(12시드)이 통째로 빠진 채 “완료”로
+    기록된 적이 있습니다. <b>AI에게 맡긴 작업은 “했다”는 말이 아니라 “안 한 자리”로 확인하세요.</b>
+  </div>
+
+  <h3>그림 — 갖지 않고 <span style="color:var(--accent)">찍을 목록</span>만 남긴다 <span class="tag">②로 이어짐</span></h3>
+
+  <pre class="plain">figures_todo:
+  - source: 049_04_Table.png   # 쪽·블록 식별자 — 필요할 때 원본에서 뽑는다
+    want: 매장 정보 표            # 무엇이 보여야 하는가 = 교안에 찍거나 그릴 것</pre>
+
+  <table>
+    <tr><th>왜 안 갖나</th><th>실측</th></tr>
+    <tr><td><b>대부분이 UI 스크린샷이다</b></td><td>시드가 참조한 그림 <b>147개</b> 중 <code>want</code>가 거의 다 “…화면”</td></tr>
+    <tr><td><b>어차피 낡는다</b></td><td>올해 3월에 나온 책의 화면은 <b>교안 만들 때 이미 낡았습니다</b></td></tr>
+    <tr><td><b>크롭이 용량의 98%였다</b></td><td>214MB 중 크롭 209MB. 지우니 <b>5.0MB</b> — bbox가 JSON에 있어 픽셀 단위로 재현됩니다</td></tr>
+  </table>
+
+  <p class="small">⚠️ <b><code>figures_todo</code>는 미완성 표시가 아니라 작업지시서입니다.</b> 남아 있는 게 정상입니다.<br>
+  ⚠️ 그림을 다시 뽑을 때 <b>배율을 픽셀에서 되계산하지 마세요.</b> 정수 dpi로 렌더 후 절삭되므로 아주 조금 작아집니다
+  (실측 243개 중 173개가 어긋남). <code>dpi = round(w_px*72/w_pt)</code>로 복원해야 합니다.</p>
+
+  <div class="big">그림 대부분이 <b>서비스 화면</b>입니다. 그러니까 <b>낡을 운명</b>이에요.<br>
+  그래서 안 갖고 목록만 남깁니다 — <b>찍는 일은 아래 ②가 합니다.</b></div>
+</section>
+
+<!-- ─────────────────────────────── -->
+<section id="refresh">
+  <h2><span class="num">② 갱신</span> 화면이 낡으면 자동으로 다시 찍는다</h2>
+  <p class="sub"><code>asof</code>가 <strong>“무엇이 낡았나”</strong>를 알려줍니다. 여기는 <strong>“그럼 어떻게 다시 채우나”</strong>입니다.</p>
+
+  <div class="dl">
+    <a class="key" href="guides/02-화면-자동-갱신.md" download><span class="ic">🔄</span> 전체 가이드 <span class="meta">.md</span></a>
+    <a class="key" href="tools/capture_live.py" download><span class="ic">🌐</span> capture_live.py <span class="meta">외부 서비스 · 기본</span></a>
+    <a href="tools/capture_pages.py" download><span class="ic">🐍</span> capture_pages.py <span class="meta">내 로컬·자체 서버</span></a>
+    <a href="tools/shots.live.txt" download><span class="ic">📝</span> shots.live.txt <span class="meta">목록 예시</span></a>
+    <a href="downloads/seed-workshop-도구모음.zip" download><span class="ic">📦</span> 전부 한 번에 <span class="meta">.zip</span></a>
+  </div>
+
+  <div class="note">
+    강의자료 한 건에 스크린샷이 스무 장, 서른 장. 도구가 업데이트되면 그걸 다 다시 찍어야 합니다.
+    <strong>그래서 안 고칩니다.</strong> 낡은 줄 알면서 그냥 씁니다 — 고치는 비용이 너무 크니까요.<br>
+    <code>asof</code>가 <b>“어디를 고칠지”</b>를, 이 도구가 <b>“고치는 비용”</b>을 없앱니다. <b>둘이 짝입니다.</b>
+  </div>
+
+  <div class="big">찍은 그림을 보관하지 말고, <b>다시 찍을 수 있는 상태</b>를 보관한다.</div>
+
+  <table>
+    <tr><th>무엇을</th><th>안 갖는다</th><th>대신 갖는다</th></tr>
+    <tr><td>책에서 뜯은 그림</td><td>크롭 PNG</td><td><code>figures_todo</code> + 원본</td></tr>
+    <tr><td>내가 만든 장표</td><td>장별 PNG</td><td><b>HTML</b> — 스크립트가 다시 찍는다</td></tr>
+    <tr><td>서비스 화면</td><td>스크린샷</td><td><b><code>shots.txt</code> + 캡처 스크립트</b></td></tr>
+  </table>
+
+  <h3>쓰는 법 <span class="tag">크롬만 있으면 됩니다</span></h3>
+
+  <p class="small"><b>① 찍을 것을 적습니다</b> — <code>shots.txt</code></p>
+  <pre class="plain">가입화면 = https://example.com/signup
+요금제  = https://example.com/pricing
+내덱    = C:/work/deck/index.html</pre>
+
+  <p class="small"><b>② 찍습니다</b> — <code>shots/</code>에 PNG가 떨어지고, <b>언제 찍었는지</b>가 기록됩니다</p>
+  <div class="prompt"><button class="copy" type="button">복사</button><pre>python capture_pages.py</pre></div>
+
+  <p class="small"><b>③ 낡은 것을 찾습니다</b> ← 이게 이 도구의 진짜 값어치</p>
+  <div class="prompt"><button class="copy" type="button">복사</button><pre>python capture_pages.py --stale 180</pre></div>
+
+  <pre class="plain">기준 180일 · 오늘 2026-08-24
+
+    241일   가입화면   (마지막 촬영 2025-12-26)
+    198일   요금제     (마지막 촬영 2026-02-07)
+
+  낡음 2장 · 최신 12장</pre>
+
+  <p class="small"><b>④ 그것만 다시 찍습니다</b></p>
+  <div class="prompt"><button class="copy" type="button">복사</button><pre>python capture_pages.py --only 가입화면</pre></div>
+
+  <h3>외부 서비스는 <code>capture_live.py</code> <span class="tag">기본 경로</span></h3>
+
+  <div class="note warn">
+    🔴 <strong>헤드리스는 봇 차단에 막힙니다. 로그인이 필요 없는 페이지라도 그렇습니다.</strong><br>
+    Cloudflare 뒤에 있는 사이트는 헤드리스로 뜨면 <b>봇 검증 페이지나 빈 화면</b>이 찍힙니다 —
+    <b>파일은 멀쩡히 생겨서 열어보기 전엔 모릅니다.</b>
+  </div>
+
+  <table>
+    <tr><th>실측</th><th>결과</th></tr>
+    <tr><td>claude.ai 공유 링크 <span class="meta">2026-08-03</span></td><td>헤드리스 → <b>봇 검증 페이지만</b> 찍힘</td></tr>
+    <tr><td>openai.com 요금제 <span class="meta">2026-08-24</span></td><td>헤드리스 → <b>로고만 있는 빈 PNG</b></td></tr>
+    <tr><td>anthropic.com · notebooklm.google</td><td>헤드리스도 <b>됨</b> (게이트 없음)</td></tr>
+    <tr><td><b>같은 openai.com 요금제를 <code>capture_live.py</code>로</b></td><td>✅ <b>591KB · 1905×8706 풀페이지</b> — 요금표·비교표·FAQ 전부</td></tr>
+  </table>
+
+  <div class="big">같은 URL, 같은 날, <b>26KB vs 591KB.</b><br>헤드리스냐 헤디드냐만 달랐습니다.</div>
+
+  <p class="small"><b>로그인 여부로 가르는 게 아닙니다 — 누구 것이냐로 가릅니다.</b>
+  <code>capture_live.py</code>는 Playwright로 <b>진짜 크롬을 화면 있는 채로</b> 띄우고 자동화 표식을 끕니다.</p>
+
+  <div class="prompt"><button class="copy" type="button">복사</button><pre>pip install playwright
+
+python capture_live.py            # shots.live.txt 를 전부 찍습니다
+python capture_live.py --stale 180
+python capture_live.py --login    # 로그인이 필요할 때만. 1회.</pre></div>
+
+  <p class="small">🔴 <code>pw_profile/</code>에 로그인 세션이 저장됩니다. <b>공개 저장소에 올리지 마세요.</b></p>
+
+  <h3>고리가 도는 모습</h3>
+  <ol class="steps">
+    <li>시드를 만들 때 <code>figures_todo</code>에 <b>무엇이 보여야 하는지</b>만 적습니다(①).</li>
+    <li>교안 만들 때 그 목록을 <code>shots.txt</code>로 옮기고 한 번에 찍습니다.</li>
+    <li>반년 뒤 <code>--stale 180</code>이 낡은 것을 지목합니다.</li>
+    <li><code>--only</code>로 그것만 다시 찍습니다. <b>5분.</b></li>
+  </ol>
+  <p class="small">이 고리가 돌기 시작하면 자료를 <b>실제로 고치게 됩니다.</b>
+  지금까지 안 고친 건 게을러서가 아니라 <b>비용 때문이었습니다.</b></p>
+</section>
+
+<!-- ─────────────────────────────── -->
+<section id="use">
+  <h2><span class="num">쓰기</span> 필요한 만큼만 걸린다</h2>
+  <p class="sub"><strong>재료를 다 쓰는 게 아닙니다.</strong> 상황이 고릅니다 — 그게 눈에 보이는 실습입니다.</p>
+
+  <div class="dl">
+    <a class="key" href="practice/슬라이드.html" download><span class="ic">🖼️</span> 실습 슬라이드 7장 <span class="meta">.html</span></a>
+  </div>
+
+  <p class="small">디자인 원칙 카드는 <b>강의장에서 나눠드립니다</b>(원천이 남의 게시물이라 공개 배포하지 않습니다).
+  집에서 해보시려면 <b>직접 쓰신 디자인 원칙</b>을 카드로 만들어 쓰시면 됩니다 — 아래 형식대로.</p>
+
+  <h3>① 적용시키기</h3>
+  <div class="prompt">
+    <button class="copy" type="button">복사</button>
+    <pre>아래 디자인 원칙 카드들을 참조해서 이 슬라이드를 고쳐줘.
+
+- 카드에 없는 규칙을 지어내지 마라
+- 고친 자리마다 어느 카드를 적용했는지 표시해줘
+- 적용할 카드가 없는 부분은 건드리지 마라</pre>
+  </div>
+  <p class="small">마지막 줄이 중요합니다. <b>이게 없으면 AI가 전부 손댑니다.</b></p>
+
+  <h3>② 어디에 걸렸는지 본다 <span class="tag">이게 핵심</span></h3>
+  <div class="big">준 카드가 전부 적용되지 않습니다.<br>그리고 <b>장마다 걸리는 카드가 다릅니다.</b></div>
+
+  <ul>
+    <li><b>안 걸린 카드는 나쁜 카드가 아닙니다.</b> 그 장표에 해당이 없었을 뿐입니다.</li>
+    <li>다른 장표를 넣으면 <b>다른 카드가 걸립니다.</b> 재료는 그대로인데요.</li>
+    <li>지침에 다 넣었으면 여덟 장이 <b>매번 전부 딸려왔을</b> 겁니다. 카드로 빼 뒀더니 필요한 것만 꺼내집니다.</li>
+  </ul>
+
+  <h3>카드 형식 <span class="tag">직접 만들 때</span></h3>
+  <pre class="plain">---
+name: 평평한-텍스트에-위계-만들기
+claim: 같은 크기로 나열된 텍스트는 크기·굵기·밑줄·말머리로 층을 나눠 읽는 순서를 만든다
+layer: wireframe          # wireframe(형태·배치) | theme(색·폰트)
+anti_pattern: 모든 문장을 같은 크기·같은 굵기로 나열해 무엇이 핵심인지 알 수 없다
+---
+
+**조작적 정의**
+- 메인은 크게, 부연은 작게 — 두 단계 이상 뚜렷한 크기 대비를 준다
+- 강조 단어에만 굵기를 주고 나머지는 기본 굵기로 둔다
+- 항목 나열엔 말머리를 붙여 덩어리를 시각적으로 끊는다</pre>
+
+  <p class="small"><b><code>claim</code> 한 줄</b>이 검색 키이고, <b><code>anti_pattern</code></b>이 있으면
+  AI가 <b>위반을 찾아냅니다</b> — 걸리는 정확도가 크게 올라갑니다.</p>
+</section>
+
+<!-- ─────────────────────────────── -->
+<section id="layers">
+  <h2><span class="num">층</span> 쌓는 법</h2>
+  <p class="sub">분해는 기계가 합니다. <strong>층은 사람이 정해야 하고, 나중에 꺼내지느냐가 거기서 갈립니다.</strong></p>
+
+  <div class="big">폴더는 분류가 아니라 <b>“지금 이 단계에서 볼 것”의 경계</b>입니다.</div>
+
+  <p class="small">8장일 땐 층이 필요 없습니다. 눈으로 다 봅니다.
+  <b>수백 장이면 평면으로는 못 찾습니다</b> — 쌓이기만 하고 안 꺼내집니다.</p>
+
+  <table>
+    <tr><th>층</th><th>무엇으로 나누나</th><th>예</th></tr>
+    <tr><td><b>출처</b></td><td>어디서 왔나</td><td>책별·계정별 폴더 — 자동으로 생깁니다</td></tr>
+    <tr><td><b>공정</b></td><td><b>언제 볼 것인가</b></td><td><code>와이어프레임/</code>(형태·배치·무채) vs <code>테마/</code>(색·폰트)</td></tr>
+    <tr><td><b>역할</b></td><td>검색 대상인가</td><td><code>principles/</code>(찾는다) vs <code>examples/</code>(링크로만 도달)</td></tr>
+  </table>
+
+  <p class="small"><b>공정 층을 왜 물리적으로 가르나</b> — 레이아웃을 잡는 단계에서 색 지식이 딸려오면
+  <b>눈이 색에 끌려 배치를 망칩니다.</b> 규율을 의지에 맡기지 않고 폴더가 강제하게 합니다.
+  <b>AI에게 던질 때도 조회 범위가 그만큼 좁아집니다.</b></p>
+
+  <p class="small"><b>연결은 태그가 1차, 링크는 보조.</b> 실측(시드 156장): 장을 가로지르는 태그 47개만으로
+  시드의 <b>92%가 다른 장과 연결</b>됐습니다. 억지로 링크를 채워 “고립 0”을 만들 필요가 없습니다.</p>
+
+  <div class="card">
+    <p style="margin-bottom:0"><b>“내 일에서 섞이면 안 되는 두 층은 무엇인가?”</b><br>
+    <span class="small">답이 나오면 그게 폴더 이름입니다. 안 나오면 아직 나눌 때가 아닙니다 — 더 쌓이고 나서 나눠도 됩니다.</span></p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────── -->
+<section id="sns">
+  <h2><span class="num">분해</span> SNS에서 긁기</h2>
+  <p class="sub">카드뉴스형 게시물은 <strong>이미 1게시물 = 1개념</strong>으로 잘려 있습니다. 시드 단위와 구조가 같습니다.</p>
+
+  <ol>
+    <li>크롬 확장 <b>Turbo Downloader for Instagram</b>으로 계정 단위 일괄 다운로드</li>
+    <li>파일명이 <code>계정_타임스탬프_미디어ID_유저ID.jpg</code>로 떨어집니다 — <b>같은 타임스탬프 = 같은 게시물</b></li>
+    <li>AI에게 <code>타임스탬프별로 폴더 나눠줘</code> 한 줄이면 게시물 단위로 묶입니다</li>
+    <li>묶인 이미지를 읽혀 아래 프롬프트로 카드를 만듭니다</li>
+  </ol>
+
+  <div class="prompt">
+    <button class="copy" type="button">복사</button>
+    <pre>이 게시물 이미지들을 읽고 재사용 가능한 원칙 카드 1장으로 다시 써줘.
+
+- 게시물을 요약하지 마라. 원칙으로 다시 써라
+- claim: 이 카드가 주장하는 것 한 줄
+- 조작적 정의: 실제로 어떻게 하는지 3~5줄
+- 같은 원칙이 다른 게시물에도 나오면 source에 전부 적어라 (반복이 원칙의 증거다)
+- 출처 URL과 게시물 ID를 머리표에 남겨라</pre>
+  </div>
+
+  <div class="note warn">
+    <strong>공개 게시물 · 개인 학습 목적</strong>으로만. 표현을 옮기지 말고 원칙으로 재서술하고 출처를 남기세요.
+    재배포·재게시는 다른 문제입니다. 사람이 찍힌 사진은 자산으로 쓰지 않습니다.
+  </div>
+</section>
+
+<!-- ─────────────────────────────── -->
+<section id="session">
+  <h2><span class="num">덤</span> 내 세션도 재료다</h2>
+  <p class="sub">외부 노하우만 분해하는 게 아닙니다. <strong>어제 그 대화도 재료입니다.</strong> 그리고 이게 제일 쉽습니다.</p>
+
+  <p class="small">최근에 제대로 씨름했던 대화를 여세요. <b>새 대화를 열지 말고 그 밑에 이어서</b> 물으면 됩니다.</p>
+
+  <div class="prompt">
+    <button class="copy" type="button">복사</button>
+    <pre>이 대화에서 내가 판단한 자리만 짚어줘.
+그리고 이 결과를 처음부터 한 번에 얻으려면 뭐라고 했어야 하는지 써줘.</pre>
+  </div>
+
+  <div class="prompt">
+    <button class="copy" type="button">복사</button>
+    <pre>방금 대화에서 앞으로 다른 일에도 다시 쓸 판단만 골라 시드로 뽑아줘.
+
+- 완성된 결과물을 요약하지 마라
+- 이 셋만 봐라: 내가 조건을 추가한 자리 / 네가 틀렸다가 고친 자리 / 더 짧은 길로 바꾼 자리
+- 각 시드에 "왜 이게 다시 쓰인다고 보는가"를 근거와 함께
+- 형식: name / description / captured / asof / status: unverified
+- 시드 1개 = 파일 1개. 3개 이하로.</pre>
+  </div>
+
+  <div class="dl">
+    <a href="downloads/seed-from-session.skill" download><span class="ic">🧩</span> 시드화 스킬 <span class="meta">.skill · 클로드용</span></a>
+    <a href="templates/시드-템플릿.md" download><span class="ic">📄</span> 시드 템플릿 <span class="meta">.md</span></a>
+  </div>
+  <p class="small">스킬을 클로드에 설치하면 <b>“이 대화 시드로 뽑아줘”</b> 한마디로 발동합니다.
+  설치가 번거로우면 <b>위 프롬프트를 복사해 쓰면 똑같습니다.</b><br>
+  🔴 실제 업무 대화라 기관명·고객명이 들어 있을 수 있습니다. <b>혼자 보세요.</b></p>
+</section>
+
+<!-- ─────────────────────────────── -->
+<section id="dont">
+  <h2><span class="num">경고</span> 하지 말 것 셋</h2>
+  <ul class="dont">
+    <li><b>발행 단위로 자르지 마라</b><span>목차대로 자르면 <b>그 책의 강의</b>가, 대화를 통째로 요약하면 <b>그때 그 정리본</b>이 나옵니다. 시드의 단위는 <b>다음에 꺼내 쓸 단위</b>입니다.</span></li>
+    <li><b>평면으로 쌓지 마라</b><span>폴더는 분류가 아니라 <b>“지금 이 단계에서 볼 것”의 경계</b>입니다. 층이 없으면 쌓이기만 하고 안 꺼내집니다.</span></li>
+    <li><b>다 쓰려 하지 마라</b><span><b>필요한 만큼만.</b> 빼는 게 판단이고, <b>뺀 이유가 다음 시드</b>입니다.</span></li>
+  </ul>
+</section>
+
+<!-- ─────────────────────────────── -->
+<section id="start">
+  <h2><span class="num">시작</span> 첫 한 걸음</h2>
+  <ol class="steps">
+    <li><b>폴더 하나 만듭니다.</b> 이름은 <code>seeds</code>.</li>
+    <li><b>오늘 뽑은 시드를 거기 넣습니다.</b> 연습용이 아니라 진짜 쓸 시드입니다.</li>
+    <li><b>강의자료에 든 서비스 화면을 <code>shots.txt</code>에 적습니다.</b> 한 번 찍어 두면 반년 뒤에 <code>--stale</code>이 알려줍니다.</li>
+  </ol>
+
+  <div class="card">
+    <h3 style="margin-top:0">막혔을 때 — 샘플</h3>
+    <div class="dl" style="margin-bottom:0">
+      <a href="samples/샘플-대화로그.md" download><span class="ic">💬</span> 샘플 대화 로그</a>
+      <a href="samples/샘플-시드-01_실습입력은-현장에서-만들게-한다.md" download><span class="ic">🌱</span> 거기서 나온 시드 1</a>
+      <a href="samples/샘플-시드-02_시간을-줄일때-단계가-아니라-준비를-깎는다.md" download><span class="ic">🌱</span> 거기서 나온 시드 2</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><b>연장통</b> — 강의 참가자가 가져가서 쓸 도구만 모은 페이지입니다. 강의안과 원본 시드는 담지 않습니다.</p>
+  <p>도구는 낡습니다. 이 페이지의 내용은 <b>2026-08-24</b> 기준입니다.</p>
+</footer>
+
+</div>
+
+<script>
+document.querySelectorAll('.copy').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var pre = btn.parentElement.querySelector('pre');
+    var text = pre.innerText;
+    var done = function(){
+      var old = btn.textContent;
+      btn.textContent = '복사됨';
+      btn.classList.add('done');
+      setTimeout(function(){ btn.textContent = old; btn.classList.remove('done'); }, 1600);
+    };
+    function fallback(){
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); done(); } catch(e) { btn.textContent = '복사 실패'; }
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else { fallback(); }
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+# 캡처 산출물 — 재생성물이라 보관하지 않는다 (이 저장소의 요지가 그거다)
+tools/shots/
+tools/shots.manifest.json
+tools/shots.live.manifest.json
+
+# 🔴 로그인 세션이 들어 있다. 절대 올리지 말 것.
+tools/pw_profile/
+
+__pycache__/
+*.pyc
+
+# shots.txt · shots.live.txt 는 배포하는 예시라 제외하지 않는다.
