@@ -568,13 +568,8 @@ anti_pattern: 모든 문장을 같은 크기·같은 굵기로 나열해 무엇�
   <h2><span class="num">분해</span> SNS에서 긁기 <span class="deck">덱 22–24장</span></h2>
   <p class="sub">카드뉴스형 게시물은 <strong>이미 1게시물 = 1개념</strong>으로 잘려 있습니다. 시드 단위와 구조가 같습니다.</p>
 
-  <ol>
-    <li>크롬 확장 <b>Turbo Downloader for Instagram</b>으로 계정 단위 일괄 다운로드
-      <span class="meta">(설치 링크는 아래)</span></li>
-    <li>파일명이 <code>계정_타임스탬프_미디어ID_유저ID.jpg</code>로 떨어집니다 — <b>같은 타임스탬프 = 같은 게시물</b></li>
-    <li>AI에게 <code>타임스탬프별로 폴더 나눠줘</code> 한 줄이면 게시물 단위로 묶입니다</li>
-    <li>묶인 이미지를 읽혀 아래 프롬프트로 카드를 만듭니다</li>
-  </ol>
+  <p class="small"><b>두 갈래입니다.</b> <b>A는 게시물 하나</b> — 5분이면 끝나고, 오늘 강의장에서 본 게 이겁니다.
+  <b>B는 계정 통째로</b> — 규모가 붙었을 때만 필요합니다. <b>A부터 하세요.</b></p>
 
   <div class="dl">
     <a class="key" href="https://chromewebstore.google.com/detail/turbo-downloader-for-inst/cpgaheeihidjmolbakklolchdplenjai"
@@ -585,9 +580,23 @@ anti_pattern: 모든 문장을 같은 크기·같은 굵기로 나열해 무엇�
   <b>이 줄이 이 강의가 말하는 <code>asof</code>입니다.</b> 확장은 바뀌거나 내려갑니다 —
   안 열리면 이름으로 찾으시고, <b>다른 확장이어도 파일명만 계정·타임스탬프를 담으면 그대로 됩니다.</b></p>
 
+  <h3>A. 게시물 하나 <span class="tag">여기서 시작</span></h3>
+
+  <ol class="steps">
+    <li><b>게시물을 엽니다.</b> 마음에 든 카드뉴스 하나면 됩니다.</li>
+    <li><b>확장의 내려받기 버튼</b>(이미지 위에 뜹니다) 또는 <code>Ctrl+Shift+D</code>.
+      캐러셀이면 <b>여러 장이 한 번에</b> 떨어집니다.</li>
+    <li>받아진 파일을 <b>작업 폴더 하나에 모읍니다.</b> 이름은 아무거나.</li>
+    <li><b>그 폴더에서 클로드 코드를 열고</b> 아래를 붙여넣습니다.</li>
+  </ol>
+
+  <p class="small">파일명이 <code>계정_타임스탬프_미디어ID_유저ID.jpg</code>로 떨어집니다.
+  <b>같은 타임스탬프면 같은 게시물</b>이라, 캐러셀 여러 장이 자동으로 한 묶음인 게 보입니다.</p>
+
   <div class="prompt">
     <button class="copy" type="button">복사</button>
-    <pre>이 게시물 이미지들을 읽고 재사용 가능한 원칙 카드 1장으로 다시 써줘.
+    <pre>이 폴더에 인스타그램 게시물 하나를 받아 뒀어. 캐러셀이라 이미지가 여러 장이야.
+이미지를 전부 읽고 재사용 가능한 원칙 카드 1장으로 다시 써줘.
 
 - 게시물을 요약하지 마라. 원칙으로 다시 써라
 - claim: 이 카드가 주장하는 것 한 줄
@@ -618,6 +627,28 @@ status: unverified
 
 - claim 과 anti_pattern 을 반드시 채워라. anti_pattern 이 있어야 AI가 위반을 찾아낸다
 - 이 카드가 **안 걸리는 자리**도 한 줄 적어라 — 그게 없으면 아무 데나 걸린다</pre>
+  </div>
+
+  <p class="small">여러 장이 한 원칙을 말하면 <b>카드는 그래도 1장</b>입니다.
+  카드가 둘로 갈라져야 할 것 같으면 그때 나누라고 하시면 됩니다.</p>
+
+  <h3>B. 계정 통째로 <span class="tag">규모가 붙으면</span></h3>
+
+  <p class="small">확장의 <b>Download All</b>로 계정 전체를 받으면 수백~수천 장이 한 폴더에 쏟아집니다.
+  <b>폴더를 나누는 데 필요한 건 파일명 하나뿐</b>입니다.</p>
+
+  <div class="prompt"><button class="copy" type="button">복사</button><pre>이 폴더에 인스타그램 계정 하나를 통째로 받아 뒀어.
+파일명이 계정_타임스탬프_미디어ID_유저ID 형식이야.
+같은 타임스탬프가 같은 게시물이니까, 타임스탬프별로 폴더를 나눠 줘.
+그리고 게시물이 몇 개인지 알려 줘.</pre></div>
+
+  <p class="small">묶이고 나면 <b>A의 프롬프트를 폴더마다</b> 돌리면 됩니다.
+  실측: 이미지 <b>2,889장 → 원칙 카드 68장 + 예시 36장</b>. <b>2,889 → 104.</b>
+  <b>시드화는 늘리는 일이 아니라 줄이는 일입니다.</b></p>
+
+  <div class="note">
+    강의장에서 쓴 <b>디자인 원칙 카드 8장이 바로 이 방법으로 나온 것</b>입니다.
+    B로 계정 두 곳을 받아 A를 반복했습니다 — <b>새로운 도구가 아니라 같은 걸 여러 번</b> 돌린 결과입니다.
   </div>
 
   <div class="note warn">
