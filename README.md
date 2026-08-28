@@ -12,7 +12,7 @@
 
 | | |
 |---|---|
-| **담는다** | 프롬프트 원문 · 스킬 패키지 · 빈 템플릿 · 실습 샘플 |
+| **담는다** | 프롬프트 원문 · 캡처 도구 2종 · 가이드 3편 · 빈 템플릿 · 스킬 · 실습 재료 |
 | **안 담는다** | 강의안 · 원본 시드 라이브러리 · **계정명·기관명 등 현장 한정 정보** · 저작권 있는 원천 · 참가자 산출물 |
 
 ⚠️ **강의 레포(`C:\dev\lecture`)는 공개하지 않는다.** 기관명·미공개 기획·자료 경로가 들어 있다.
@@ -39,17 +39,33 @@
 ## 구조
 
 ```
-index.html                 페이지 본체 (자기완결 — 외부 의존 0)
-guides/                    ①·②·③ 전체 가이드
-tools/capture_pages.py     화면 목록 → PNG + 언제 찍었는지 기록 + --stale 보고
-tools/capture_live.py      외부 사이트 (Playwright + 실크롬 헤디드) · --login 은 필요할 때만
-tools/shots.txt            찍을 목록 예시
-templates/시드-템플릿.md     빈 시드 뼈대
-practice/                  실습 슬라이드 7장 + ①의 결과 샘플
-samples/                   막힌 사람이 중간부터 합류할 입력물 + 직접 쓴 카드 3장
-skill/seed-from-session/   스킬 소스 (SSOT)
-downloads/                 스킬 배포본 · 전체 도구모음 zip(USB 배포용) · 실습카드 8장(비번 zip)
-.nojekyll                  GitHub Pages 의 Jekyll 처리를 끈다
+index.html                                    페이지 본체 (자기완결 — 외부 의존 0)
+
+guides/01-책-그림과-텍스트.md                  가이드 · 캡처→전사→위임 3단계
+guides/02-화면-자동-갱신.md                    가이드 · 프롬프트가 실제로 시키는 것
+guides/03-시드-정리법.md                       가이드 · 제텔카스텐·PARA · 원출처 링크
+
+tools/capture_pages.py                        내 로컬·자체 서버용 (헤드리스, 빠르다) · --stale 보고
+tools/capture_live.py                         남의 사이트용 (Playwright + 실크롬 헤디드) · --login 은 필요할 때만
+tools/shots.txt                               찍을 목록 · 이름 = URL
+tools/shots.live.txt                          남의 사이트용 목록
+
+templates/시드-템플릿.md                       빈 시드 뼈대 · 출처 3종(책·게시물·세션)
+
+practice/슬라이드.html                         실습에서 고칠 슬라이드 7장
+practice/실습결과-샘플.html                    ①의 결과 · 장마다 적용 카드 표시 (낙오자 합류용)
+
+samples/샘플-대화로그.md                       시드를 뽑아낸 원본 대화
+samples/샘플-시드-01~02_*.md                   그 대화에서 나온 시드
+samples/샘플-카드-01~03_*.md                   직접 쓴 원칙 카드 (출처 = 강사 본인 노트)
+
+skill/seed-from-session/SKILL.md              스킬 소스 (SSOT — 여기를 고치고 다시 묶는다)
+
+downloads/seed-from-session.skill             스킬 배포본
+downloads/seed-workshop-도구모음.zip           위 파일 전부 (17개) · USB 배포용
+downloads/실습카드-8장.zip                     🔒 디자인 원칙 카드 8장 · 비밀번호 필요
+
+.nojekyll                                     GitHub Pages 의 Jekyll 처리를 끈다
 ```
 
 ⚠️ `.gitignore` 에 **`tools/pw_profile/`** 이 들어 있다 — 로그인 세션이다. **절대 커밋하지 말 것.**
