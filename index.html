@@ -70,6 +70,11 @@ h3 .tag{
   font-size:.72rem; font-weight:600; color:var(--ink-3); border:1px solid var(--line);
   padding:2px 7px; border-radius:5px; margin-left:8px; vertical-align:2px; white-space:nowrap;
 }
+h2 .deck{
+  font-size:.7rem; font-weight:600; color:var(--ink-3); background:var(--surface);
+  border:1px solid var(--line); padding:3px 9px; border-radius:999px;
+  margin-left:10px; vertical-align:3px; white-space:nowrap; letter-spacing:0;
+}
 p{margin:0 0 14px}
 .small{font-size:.92rem; color:var(--ink-2)}
 
@@ -160,6 +165,7 @@ code{background:var(--code-bg); padding:1px 6px; border-radius:5px; font-size:.9
 </header>
 
 <nav class="toc">
+  <a class="key" href="#shape">시드 한 장의 형식</a>
   <a class="key" href="#book">① 책에서 뜯기</a>
   <a class="key" href="#refresh">② 화면 자동 갱신</a>
   <a href="#use">쓰기</a>
@@ -171,8 +177,58 @@ code{background:var(--code-bg); padding:1px 6px; border-radius:5px; font-size:.9
 </nav>
 
 <!-- ─────────────────────────────── -->
+<section id="shape">
+  <h2><span class="num">형식</span> 시드 한 장은 이렇게 생겼습니다 <span class="deck">덱 14–16장</span></h2>
+  <p class="sub"><strong>본문보다 머리표가 먼저입니다.</strong> 나중에 이걸로 찾고, 이걸로 낡은 걸 압니다.</p>
+
+  <p class="small">아래가 <b>강의에서 띄운 그 파일 그대로</b>입니다. 아래 프롬프트들은 전부 <b>이 형식으로 내놓게</b> 되어 있습니다 —
+  그래서 누가 돌려도 같은 모양이 나옵니다.</p>
+
+  <pre class="plain">---
+name: 일잘챗gpt-03.2-01-프롬프트-구조화-4요소
+description: 답변 성능을 높이기 위해 프롬프트를 구성하는 필수 4요소 (목표, 결과물 형식, 주의사항, 참고 자료)
+type: seed
+source:
+  book: "일 잘하는 사람은 이렇게 챗GPT를 씁니다"
+  publisher: 한빛미디어
+  author: 장피엠(장병준)
+  section: "03.2 답변 성능을 높이는 프롬프트 구조화 &gt; 효과적인 프롬프트 구조화의 네 가지 구성 요소"
+  book_pages: "53-57"
+captured: 2026-08-16
+asof: 2026-08-16
+tags: [external, book, 프롬프트, 구조화]
+combine_hint: [일잘챗gpt-03.2-05-마크다운-프롬프트]
+status: unverified
+---
+&gt; ⚠️ 외부·미검증 — 검증 전 사실로 인용 금지
+
+# 프롬프트 구조화 4요소
+...</pre>
+
+  <table>
+    <tr><th>칸</th><th>무엇을 하나</th></tr>
+    <tr><td><code>description</code></td><td><b>검색 키.</b> 제목이 아니라 이 한 줄로 AI가 본문을 안 읽고 고릅니다</td></tr>
+    <tr><td><code>source</code></td><td>어디서 왔나. <b>종류마다 칸이 다릅니다</b> — 책이면 쪽수, 게시물이면 URL·ID, 세션이면 날짜</td></tr>
+    <tr><td><code>captured</code></td><td>뽑은 날</td></tr>
+    <tr><td><b><code>asof</code></b></td><td><b>내용의 기준일. 낡음을 판정하는 단 하나의 칸입니다</b></td></tr>
+    <tr><td><code>combine_hint</code></td><td>같이 꺼낼 시드. 이게 있으면 <b>한 장을 부르면 짝이 따라옵니다</b></td></tr>
+    <tr><td><code>status</code></td><td><code>unverified</code>가 기본값. 검증하고 내 말로 다시 쓰면 올립니다</td></tr>
+  </table>
+
+  <div class="note warn">
+    🔴 <strong>첫 줄 경고는 머리표가 아니라 본문 안에 둡니다.</strong>
+    머리표는 복사해 붙일 때 잘려 나가지만, <b>본문 첫 줄은 따라갑니다.</b>
+    남의 자료에서 뽑은 시드가 <b>검증 없이 인용되는 걸 막는 자리</b>입니다.
+  </div>
+
+  <div class="dl">
+    <a class="key" href="templates/시드-템플릿.md" download><span class="ic">📄</span> 빈 템플릿 <span class="meta">.md · 출처 3종</span></a>
+  </div>
+</section>
+
+<!-- ─────────────────────────────── -->
 <section id="book">
-  <h2><span class="num">① 분해</span> 책에서 그림과 텍스트를 뜯는다</h2>
+  <h2><span class="num">① 분해</span> 책에서 그림과 텍스트를 뜯는다 <span class="deck">덱 17–21장</span></h2>
   <p class="sub"><strong>텍스트와 그림은 처리가 다릅니다.</strong> 텍스트는 전사해서 갖고, <strong>그림은 안 갖습니다.</strong></p>
 
   <div class="dl">
@@ -202,7 +258,34 @@ code{background:var(--code-bg); padding:1px 6px; border-radius:5px; font-size:.9
   단 도구와 무관하게 유효한 성질은 남겨라
 - 그림이 필요하면 경로를 지어내지 말고, 원고에 있는 파일명을 그대로 figures_todo 에 적어라
 - 뜻이 통하지 않는 인식 오류 조각은 버려라. 애매하면 버려라
-- 한 번에 한 절만. 여러 절을 한꺼번에 시키지 마라</pre>
+- 한 번에 한 절만. 여러 절을 한꺼번에 시키지 마라
+
+형식은 이대로. 시드 1개 = 파일 1개.
+
+---
+name: &lt;출처약칭&gt;-&lt;절번호&gt;-&lt;내용을-읽을-수-있는-이름&gt;
+description: &lt;본문을 안 읽고 고를 수 있는 한 줄&gt;
+type: seed
+source:
+  book: "&lt;책 제목&gt;"
+  publisher: &lt;출판사&gt;
+  author: &lt;지은이&gt;
+  section: "&lt;절 제목 &gt; 꼭지 제목&gt;"
+  book_pages: "&lt;책에 인쇄된 쪽&gt;"
+captured: &lt;오늘 날짜&gt;
+asof: &lt;내용의 기준일. 모르면 captured 와 같게&gt;
+tags: [external, book, ...]
+combine_hint: [&lt;같이 꺼내야 뜻이 사는 시드 이름&gt;]
+status: unverified
+---
+&gt; ⚠️ 외부·미검증 — 검증 전 사실로 인용 금지
+
+# &lt;제목&gt;
+&lt;본문&gt;
+
+- 머리표 칸을 임의로 빼거나 더하지 마라
+- 경고 줄은 머리표 밖, 본문 첫 줄에 둬라
+- 모르는 칸은 지어내지 말고 비워 둬라</pre>
   </div>
 
   <div class="note">
@@ -233,7 +316,7 @@ code{background:var(--code-bg); padding:1px 6px; border-radius:5px; font-size:.9
 
 <!-- ─────────────────────────────── -->
 <section id="refresh">
-  <h2><span class="num">② 갱신</span> 화면이 낡으면 자동으로 다시 찍는다</h2>
+  <h2><span class="num">② 갱신</span> 화면이 낡으면 자동으로 다시 찍는다 <span class="deck">덱 34–36장</span></h2>
   <p class="sub"><code>asof</code>가 <strong>“무엇이 낡았나”</strong>를 알려줍니다. 여기는 <strong>“그럼 어떻게 다시 채우나”</strong>입니다.</p>
 
   <div class="dl">
@@ -259,18 +342,33 @@ code{background:var(--code-bg); padding:1px 6px; border-radius:5px; font-size:.9
     <tr><td>서비스 화면</td><td>스크린샷</td><td><b><code>shots.txt</code> + 캡처 스크립트</b></td></tr>
   </table>
 
-  <h3>쓰는 법 <span class="tag">크롬만 있으면 됩니다</span></h3>
+  <h3>쓰는 법 <span class="tag">파이썬 몰라도 됩니다</span></h3>
 
-  <p class="small"><b>① 찍을 것을 적습니다</b> — <code>shots.txt</code></p>
-  <pre class="plain">가입화면 = https://example.com/signup
+  <div class="note">
+    아래 도구는 <strong>여러분이 직접 돌리는 게 아닙니다.</strong>
+    <b>클로드 코드(또는 쓰시는 AI)에게 시키면 됩니다.</b> 설치·옵션 이름·에러 처리는 전부 그쪽 일입니다.<br>
+    <b>여러분이 기억할 것은 문장 네 개뿐입니다.</b>
+  </div>
+
+  <p class="small"><b>준비 (한 번만)</b> — 위 zip을 받아 작업 폴더에 풀고, <b>그 폴더에서 클로드 코드를 엽니다.</b>
+  풀린 <code>tools/</code> 안에 스크립트와 목록 예시가 들어 있습니다.</p>
+
+  <p class="small"><b>① 목록을 만들고 한 번 찍습니다</b></p>
+  <div class="prompt"><button class="copy" type="button">복사</button><pre>이 폴더 tools/ 에 capture_pages.py 와 shots.txt 가 있어.
+아래가 내 강의자료에 들어간 화면들이야. shots.txt 에 적고 한 번 돌려 줘.
+필요한 패키지가 있으면 설치하고, 결과를 요약해 줘.
+
+가입화면 = https://example.com/signup
 요금제  = https://example.com/pricing
-내덱    = C:/work/deck/index.html</pre>
+내덱    = C:/work/deck/index.html</pre></div>
 
-  <p class="small"><b>② 찍습니다</b> — <code>shots/</code>에 PNG가 떨어지고, <b>언제 찍었는지</b>가 기록됩니다</p>
-  <div class="prompt"><button class="copy" type="button">복사</button><pre>python capture_pages.py</pre></div>
+  <p class="small"><b>② 빈 화면이 없는지 확인합니다</b> — 봇 차단은 <b>조용히</b> 실패합니다(아래 참조)</p>
+  <div class="prompt"><button class="copy" type="button">복사</button><pre>방금 찍은 것 중에 빈 화면으로 의심된다고 나온 게 있으면
+capture_live.py 로 다시 찍어 줘. 그것만.</pre></div>
 
-  <p class="small"><b>③ 낡은 것을 찾습니다</b> ← 이게 이 도구의 진짜 값어치</p>
-  <div class="prompt"><button class="copy" type="button">복사</button><pre>python capture_pages.py --stale 180</pre></div>
+  <p class="small"><b>③ 반년 뒤 — 낡은 것을 찾습니다</b> ← 이게 이 도구의 진짜 값어치</p>
+  <div class="prompt"><button class="copy" type="button">복사</button><pre>캡처 목록에서 180일 넘은 게 있는지 확인해 줘.
+있으면 그것만 다시 찍고, 뭐가 바뀌었는지 알려 줘.</pre></div>
 
   <pre class="plain">기준 180일 · 오늘 2026-08-24
 
@@ -279,10 +377,13 @@ code{background:var(--code-bg); padding:1px 6px; border-radius:5px; font-size:.9
 
   낡음 2장 · 최신 12장</pre>
 
-  <p class="small"><b>④ 그것만 다시 찍습니다</b></p>
-  <div class="prompt"><button class="copy" type="button">복사</button><pre>python capture_pages.py --only 가입화면</pre></div>
+  <p class="small"><b>④ 내 교안에 반영합니다</b></p>
+  <div class="prompt"><button class="copy" type="button">복사</button><pre>다시 찍은 화면이 내 강의자료 어느 파일에 들어가 있는지 찾아 줘.
+바뀐 게 있으면 어디를 고쳐야 하는지 알려 주고, 파일은 아직 고치지 마.</pre></div>
 
-  <h3>외부 서비스는 <code>capture_live.py</code> <span class="tag">기본 경로</span></h3>
+  <p class="small">마지막 줄이 중요합니다. <b>먼저 보여달라고 해야</b> 엉뚱한 자리를 고쳐 놓는 걸 막습니다.</p>
+
+  <h3>알려줘야 하는 것 하나 <span class="tag">AI도 모릅니다</span></h3>
 
   <div class="note warn">
     🔴 <strong>헤드리스는 봇 차단에 막힙니다. 로그인이 필요 없는 페이지라도 그렇습니다.</strong><br>
@@ -301,15 +402,24 @@ code{background:var(--code-bg); padding:1px 6px; border-radius:5px; font-size:.9
   <div class="big">같은 URL, 같은 날, <b>26KB vs 591KB.</b><br>헤드리스냐 헤디드냐만 달랐습니다.</div>
 
   <p class="small"><b>로그인 여부로 가르는 게 아닙니다 — 누구 것이냐로 가릅니다.</b>
-  <code>capture_live.py</code>는 Playwright로 <b>진짜 크롬을 화면 있는 채로</b> 띄우고 자동화 표식을 끕니다.</p>
+  내 로컬 파일은 헤드리스가 빠르고, <b>남의 사이트는 진짜 크롬을 띄우는 쪽</b>이 확실합니다.
+  AI가 이걸 모르고 헤드리스로만 돌릴 수 있으니 <b>한 줄 알려주세요.</b></p>
 
-  <div class="prompt"><button class="copy" type="button">복사</button><pre>pip install playwright
+  <div class="prompt"><button class="copy" type="button">복사</button><pre>외부 사이트는 헤드리스로 찍으면 빈 화면이 나올 수 있어.
+남의 사이트는 capture_live.py 를 써 줘 — 진짜 크롬을 띄우는 쪽이야.
+로그인이 필요하면 --login 으로 한 번만 로그인하면 돼.</pre></div>
 
-python capture_live.py            # shots.live.txt 를 전부 찍습니다
-python capture_live.py --stale 180
-python capture_live.py --login    # 로그인이 필요할 때만. 1회.</pre></div>
+  <p class="small">🔴 <code>--login</code>을 쓰면 <code>tools/pw_profile/</code>에 로그인 세션이 저장됩니다.
+  <b>공개 저장소에 올리지 마세요.</b> AI에게도 <b>“그 폴더는 커밋하지 마”</b>라고 한 번 말해 두세요.</p>
 
-  <p class="small">🔴 <code>pw_profile/</code>에 로그인 세션이 저장됩니다. <b>공개 저장소에 올리지 마세요.</b></p>
+  <h3>명령어로 직접 쓰실 분만 <span class="tag">안 보셔도 됩니다</span></h3>
+  <p class="small">위 프롬프트가 실제로 시키는 것이 이겁니다. 궁금하시면.</p>
+  <pre class="plain">python capture_pages.py                 # shots.txt 를 전부 찍는다 (내 로컬·자체 서버)
+python capture_pages.py --stale 180     # 낡은 것 지목
+python capture_pages.py --only 가입화면   # 그것만 다시
+
+python capture_live.py                  # shots.live.txt 를 전부 (남의 사이트)
+python capture_live.py --login          # 로그인이 필요할 때만. 1회.</pre>
 
   <h3>고리가 도는 모습</h3>
   <ol class="steps">
@@ -324,7 +434,7 @@ python capture_live.py --login    # 로그인이 필요할 때만. 1회.</pre></
 
 <!-- ─────────────────────────────── -->
 <section id="use">
-  <h2><span class="num">쓰기</span> 필요한 만큼만 걸린다</h2>
+  <h2><span class="num">쓰기</span> 필요한 만큼만 걸린다 <span class="deck">덱 30–33장</span></h2>
   <p class="sub"><strong>재료를 다 쓰는 게 아닙니다.</strong> 상황이 고릅니다 — 그게 눈에 보이는 실습입니다.</p>
 
   <div class="dl">
@@ -397,7 +507,7 @@ anti_pattern: 모든 문장을 같은 크기·같은 굵기로 나열해 무엇�
 
 <!-- ─────────────────────────────── -->
 <section id="layers">
-  <h2><span class="num">층</span> 쌓는 법</h2>
+  <h2><span class="num">층</span> 쌓는 법 <span class="deck">덱 26–29장</span></h2>
   <p class="sub">분해는 기계가 합니다. <strong>층은 사람이 정해야 하고, 나중에 꺼내지느냐가 거기서 갈립니다.</strong></p>
 
   <div class="big">폴더는 분류가 아니라 <b>“지금 이 단계에서 볼 것”의 경계</b>입니다.</div>
@@ -438,7 +548,7 @@ anti_pattern: 모든 문장을 같은 크기·같은 굵기로 나열해 무엇�
 
 <!-- ─────────────────────────────── -->
 <section id="sns">
-  <h2><span class="num">분해</span> SNS에서 긁기</h2>
+  <h2><span class="num">분해</span> SNS에서 긁기 <span class="deck">덱 22–24장</span></h2>
   <p class="sub">카드뉴스형 게시물은 <strong>이미 1게시물 = 1개념</strong>으로 잘려 있습니다. 시드 단위와 구조가 같습니다.</p>
 
   <ol>
@@ -456,7 +566,31 @@ anti_pattern: 모든 문장을 같은 크기·같은 굵기로 나열해 무엇�
 - claim: 이 카드가 주장하는 것 한 줄
 - 조작적 정의: 실제로 어떻게 하는지 3~5줄
 - 같은 원칙이 다른 게시물에도 나오면 source에 전부 적어라 (반복이 원칙의 증거다)
-- 출처 URL과 게시물 ID를 머리표에 남겨라</pre>
+
+형식은 「시드 한 장의 형식」과 같되 source 칸만 게시물용으로 바꾼다.
+
+---
+name: &lt;원칙을-그대로-읽히는-이름&gt;
+claim: &lt;이 카드가 주장하는 것 한 줄&gt;
+type: principle
+layer: wireframe        # wireframe(형태·배치) | theme(색·폰트)
+anti_pattern: &lt;이 원칙을 어겼을 때의 모습&gt;
+source: &lt;계정&gt; &lt;게시물ID 여러 개&gt;
+source_url: &lt;계정 주소&gt;
+captured: &lt;오늘 날짜&gt;
+asof: &lt;오늘 날짜&gt;
+tags: [external, post, ...]
+status: unverified
+---
+&gt; ⚠️ 외부·미검증 — 검증 전 사실로 인용 금지
+
+&lt;왜 그런지 2~3줄&gt;
+
+**조작적 정의**
+- &lt;실제로 어떻게 하는지 3~5줄&gt;
+
+- claim 과 anti_pattern 을 반드시 채워라. anti_pattern 이 있어야 AI가 위반을 찾아낸다
+- 이 카드가 **안 걸리는 자리**도 한 줄 적어라 — 그게 없으면 아무 데나 걸린다</pre>
   </div>
 
   <div class="note warn">
@@ -467,7 +601,7 @@ anti_pattern: 모든 문장을 같은 크기·같은 굵기로 나열해 무엇�
 
 <!-- ─────────────────────────────── -->
 <section id="session">
-  <h2><span class="num">덤</span> 내 세션도 재료다</h2>
+  <h2><span class="num">덤</span> 내 세션도 재료다 <span class="deck">덱 2·37장</span></h2>
   <p class="sub">외부 노하우만 분해하는 게 아닙니다. <strong>어제 그 대화도 재료입니다.</strong> 그리고 이게 제일 쉽습니다.</p>
 
   <p class="small">최근에 제대로 씨름했던 대화를 여세요. <b>새 대화를 열지 말고 그 밑에 이어서</b> 물으면 됩니다.</p>
@@ -485,8 +619,31 @@ anti_pattern: 모든 문장을 같은 크기·같은 굵기로 나열해 무엇�
 - 완성된 결과물을 요약하지 마라
 - 이 셋만 봐라: 내가 조건을 추가한 자리 / 네가 틀렸다가 고친 자리 / 더 짧은 길로 바꾼 자리
 - 각 시드에 "왜 이게 다시 쓰인다고 보는가"를 근거와 함께
-- 형식: name / description / captured / asof / status: unverified
-- 시드 1개 = 파일 1개. 3개 이하로.</pre>
+- 시드 1개 = 파일 1개. 3개 이하로.
+
+형식은 「시드 한 장의 형식」과 같되 source 칸만 세션용으로 바꾼다.
+
+---
+name: &lt;판단을-그대로-읽히는-이름&gt;
+description: &lt;본문을 안 읽고 고를 수 있는 한 줄&gt;
+type: seed
+source:
+  kind: session
+  what: &lt;어떤 작업이었나&gt;
+  date: &lt;그 대화 날짜&gt;
+captured: &lt;오늘 날짜&gt;
+asof: &lt;오늘 날짜&gt;
+tags: [self, ...]
+status: verified          # 내 판단이라 남의 것과 다르다
+---
+# &lt;제목&gt;
+&lt;무엇이 문제였고 어떤 판단을 했는지&gt;
+
+## 다시 쓰이는 근거
+&lt;실제로 관찰된 것만. 확신이 없으면: ⚠️ 3의 법칙 미충족 — 한 번 더 쓰이면 승격&gt;
+
+- 내 세션에서 나온 것은 경고 줄을 안 붙인다. 남의 것이 아니다
+- 대신 status 를 함부로 verified 로 올리지 마라 — 한 번 더 쓰였을 때 올린다</pre>
   </div>
 
   <div class="dl">
@@ -500,7 +657,7 @@ anti_pattern: 모든 문장을 같은 크기·같은 굵기로 나열해 무엇�
 
 <!-- ─────────────────────────────── -->
 <section id="dont">
-  <h2><span class="num">경고</span> 하지 말 것 셋</h2>
+  <h2><span class="num">경고</span> 하지 말 것 셋 <span class="deck">덱 38장</span></h2>
   <ul class="dont">
     <li><b>발행 단위로 자르지 마라</b><span>목차대로 자르면 <b>그 책의 강의</b>가, 대화를 통째로 요약하면 <b>그때 그 정리본</b>이 나옵니다. 시드의 단위는 <b>다음에 꺼내 쓸 단위</b>입니다.</span></li>
     <li><b>평면으로 쌓지 마라</b><span>폴더는 분류가 아니라 <b>“지금 이 단계에서 볼 것”의 경계</b>입니다. 층이 없으면 쌓이기만 하고 안 꺼내집니다.</span></li>
@@ -510,7 +667,7 @@ anti_pattern: 모든 문장을 같은 크기·같은 굵기로 나열해 무엇�
 
 <!-- ─────────────────────────────── -->
 <section id="start">
-  <h2><span class="num">시작</span> 첫 한 걸음</h2>
+  <h2><span class="num">시작</span> 첫 한 걸음 <span class="deck">덱 38–39장</span></h2>
   <ol class="steps">
     <li><b>폴더 하나 만듭니다.</b> 이름은 <code>seeds</code>.</li>
     <li><b>오늘 뽑은 시드를 거기 넣습니다.</b> 연습용이 아니라 진짜 쓸 시드입니다.</li>
